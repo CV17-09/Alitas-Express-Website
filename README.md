@@ -46,9 +46,9 @@ The application includes a responsive frontend for customers and a backend syste
 
 ### Frontend
 
-- HTML5
-- CSS3
-- JavaScript
+- React
+- Next.js
+- Tailwind CSS
 
 ### Backend
 
@@ -59,111 +59,104 @@ The application includes a responsive frontend for customers and a backend syste
 
 - PostgreSQL
 
-### Tools
+### Tools & Development
 
 - Git
 - GitHub
 - REST APIs
+- Postman
+- npm
 
 ---
 
-## Project Structure
+## Frontend Architecture
 
-```text
-Alitas-Express-Fullstack/
-│
-├── client/
-│   ├── index.html
-│   ├── styles/
-│   ├── scripts/
-│   └── images/
-│
-├── server/
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── middleware/
-│   └── server.js
-│
-├── database/
-│   └── schema.sql
-│
-├── README.md
-├── package.json
-└── .gitignore
-```
+The frontend is built using React and Next.js to provide a fast, responsive, and scalable user experience.
+
+Responsibilities:
+
+- Display restaurant information
+- Render menu items and wing flavors
+- Collect customer order information
+- Validate form inputs
+- Communicate with backend APIs
+- Display order confirmations and error messages
 
 ---
 
-## Database Design
+## Backend Architecture
 
-The system stores customer order information, including:
+The backend follows a RESTful API architecture using Node.js and Express.js.
 
-- Customer Name
-- Phone Number
-- Delivery Address
-- Selected Flavor
-- Quantity
-- Order Date
-- Order Status
+Responsibilities:
 
----
-
-## API Endpoints
-
-### Orders
-
-| Method | Endpoint | Description |
-|----------|----------|----------|
-| GET | /api/orders | Retrieve all orders |
-| GET | /api/orders/:id | Retrieve a specific order |
-| POST | /api/orders | Create a new order |
-| PUT | /api/orders/:id | Update an order |
-| DELETE | /api/orders/:id | Remove an order |
+- Receive customer order requests
+- Validate incoming data
+- Process business logic
+- Interact with PostgreSQL database
+- Return API responses to the frontend
 
 ---
 
-## Installation
+## Database Architecture
 
-### Clone Repository
+PostgreSQL stores all customer and order information.
 
-```bash
-git clone https://github.com/yourusername/Alitas-Express-Fullstack.git
-```
+### Orders Table
 
-### Navigate to Project
+| Column | Data Type |
+|----------|----------|
+| id | SERIAL PRIMARY KEY |
+| customer_name | VARCHAR(100) |
+| phone_number | VARCHAR(20) |
+| delivery_address | TEXT |
+| flavor | VARCHAR(50) |
+| quantity | INTEGER |
+| order_status | VARCHAR(20) |
+| created_at | TIMESTAMP |
 
-```bash
-cd Alitas-Express-Fullstack
-```
+---
 
-### Install Dependencies
+## System Architecture
 
-```bash
-npm install
-```
+Customer Browser
+       │
+       ▼
+React + Next.js Frontend
+       │
+       ▼
+REST API Requests
+       │
+       ▼
+Node.js + Express Backend
+       │
+       ▼
+PostgreSQL Database
 
-### Start Server
+---
 
-```bash
-npm start
-```
+## Application Workflow
 
-### Run Development Server
-
-```bash
-npm run dev
-```
+1. Customer visits the website.
+2. Customer views available wing flavors.
+3. Customer selects flavor and quantity.
+4. Customer enters contact and delivery information.
+5. Frontend sends a POST request to the backend.
+6. Express validates the request.
+7. Order is stored in PostgreSQL.
+8. Backend returns a success response.
+9. Customer receives order confirmation.
 
 ---
 
 ## Future Enhancements
 
-- Online payment integration
-- Shopping cart functionality
+- User authentication
 - Customer accounts
+- Online payment processing (Stripe)
 - Order tracking
-- SMS order notifications
 - Admin dashboard
 - Inventory management
+- SMS notifications
+- Email order confirmations
 - Analytics and reporting

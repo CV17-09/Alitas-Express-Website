@@ -80,20 +80,6 @@ The frontend is built using React and Next.js to provide a fast, responsive, and
 
 ---
 
-## Project Structure
-
-```text
-src/
-├── app/
-├── components/
-├── public/
-├── styles/
-├── lib/
-└── types/
-```
-
----
-
 ## API Integration
 
 The frontend communicates with the backend through REST APIs.

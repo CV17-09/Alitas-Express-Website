@@ -26,19 +26,15 @@ export default function AdminDashboardPage() {
     fetchOrders();
   }, []);
 
-  const pendingOrders = orders.filter(
-    (order) => order.orderStatus === "Pending"
-  ).length;
-
-  const completedOrders = orders.filter(
-    (order) => order.orderStatus === "Completed"
-  ).length;
+  const pendingOrders = orders.filter((order) => order.orderStatus === "Pending").length;
+  const completedOrders = orders.filter((order) => order.orderStatus === "Completed").length;
+  const recentOrders = orders.slice(0, 3);
 
   const stats = [
-    { title: "Today’s Orders", value: orders.length.toString(), note: "Total orders saved" },
-    { title: "Pending", value: pendingOrders.toString(), note: "Need attention" },
-    { title: "Completed", value: completedOrders.toString(), note: "Finished orders" },
-    { title: "Menu Items", value: "7", note: "Active flavors" },
+    { title: "Total Orders", value: orders.length.toString(), note: "Orders received" },
+    { title: "Pending", value: pendingOrders.toString(), note: "Waiting to be prepared" },
+    { title: "Completed", value: completedOrders.toString(), note: "Successfully fulfilled" },
+    { title: "Menu Options", value: "7", note: "Available selections" },
   ];
 
   return (
@@ -48,22 +44,35 @@ export default function AdminDashboardPage() {
           <p className="text-sm font-black uppercase tracking-[0.3em]">
             Alitas Express
           </p>
+
           <h1 className="mt-3 text-5xl font-black uppercase">
             Admin Dashboard
           </h1>
+
           <p className="mt-3 text-xl font-semibold">
-            Manage orders, customers, flavors, and business activity.
+            Track customer orders, manage the menu, and monitor daily activity.
           </p>
         </section>
 
         <div className="mt-8 flex flex-wrap gap-4">
-          <a href="/admin/orders" className="rounded-full bg-[#A61E1E] px-6 py-3 font-bold hover:bg-red-800">
+          <a
+            href="/admin/orders"
+            className="rounded-full bg-[#A61E1E] px-6 py-3 font-bold hover:bg-red-800"
+          >
             View Orders
           </a>
-          <a href="/admin/menu" className="rounded-full bg-[#E6A11A] px-6 py-3 font-bold text-black hover:bg-yellow-500">
+
+          <a
+            href="/admin/menu"
+            className="rounded-full bg-[#E6A11A] px-6 py-3 font-bold text-black hover:bg-yellow-500"
+          >
             Manage Menu
           </a>
-          <a href="/admin/customers" className="rounded-full border border-[#E6A11A] px-6 py-3 font-bold text-[#E6A11A] hover:bg-[#E6A11A] hover:text-black">
+
+          <a
+            href="/admin/customers"
+            className="rounded-full border border-[#E6A11A] px-6 py-3 font-bold text-[#E6A11A] hover:bg-[#E6A11A] hover:text-black"
+          >
             Customers
           </a>
         </div>
@@ -82,6 +91,51 @@ export default function AdminDashboardPage() {
             </div>
           ))}
         </div>
+
+        <section className="mt-10 rounded-3xl border border-[#E6A11A]/30 bg-white/5 p-6">
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-3xl font-black uppercase text-[#E6A11A]">
+              Recent Orders
+            </h2>
+
+            <a href="/admin/orders" className="font-bold text-[#E6A11A]">
+              See all →
+            </a>
+          </div>
+
+          <div className="mt-6 grid gap-4">
+            {recentOrders.length === 0 ? (
+              <p className="text-[#F3E7D3]">No orders have been placed yet.</p>
+            ) : (
+              recentOrders.map((order) => (
+                <div
+                  key={order.id}
+                  className="rounded-2xl bg-[#0B0B0B] p-5"
+                >
+                  <div className="flex flex-col justify-between gap-3 md:flex-row md:items-center">
+                    <div>
+                      <h3 className="text-xl font-bold">
+                        {order.customerName}
+                      </h3>
+
+                      <p className="text-[#F3E7D3]">
+                        {order.quantity} item(s) • {order.flavor}
+                      </p>
+
+                      <p className="text-sm text-gray-400">
+                        {order.phoneNumber}
+                      </p>
+                    </div>
+
+                    <span className="rounded-full bg-[#E6A11A] px-4 py-2 text-sm font-black text-black">
+                      {order.orderStatus}
+                    </span>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
       </div>
     </main>
   );

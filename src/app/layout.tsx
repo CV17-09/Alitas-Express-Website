@@ -13,8 +13,46 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alitas Express",
-  description: "Wings delivery ordering platform",
+  title: {
+    default: "Alitas Express",
+    template: "%s | Alitas Express",
+  },
+
+  description:
+    "Alitas Express is your destination for fresh, flavorful wings delivered fast. Browse our menu, create an account, and place your order online.",
+
+  keywords: [
+    "wings delivery",
+    "chicken wings",
+    "Alitas Express",
+    "BBQ wings",
+    "Buffalo wings",
+    "Lemon Pepper wings",
+    "Mango Habanero",
+    "Teriyaki wings",
+    "food delivery",
+    "restaurant ordering",
+  ],
+
+  authors: [
+    {
+      name: "Alitas Express",
+    },
+  ],
+
+  creator: "Alitas Express",
+
+  openGraph: {
+    title: "Alitas Express",
+    description:
+      "Fresh, flavorful wings delivered straight to your door.",
+    type: "website",
+    locale: "en_US",
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -25,10 +63,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body className="min-h-full bg-[#0B0B0B] text-white">
-        {children}
+      <body className="min-h-screen bg-[#0B0B0B] text-white antialiased">
+        <div className="flex min-h-screen flex-col">
+          {children}
+        </div>
       </body>
     </html>
   );
